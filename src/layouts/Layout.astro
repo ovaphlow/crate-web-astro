@@ -68,18 +68,18 @@ const { title } = Astro.props;
 			</div>
 		</header>
 		<main class="flex-1 flex flex-row mt-4">
-			<aside class="w-64 flex flex-col justify-between">
+			<aside class="w-64 flex flex-col">
 				<ul class="menu menu-sm rounded-box">
-					<li><a>Item 1</a></li>
+					<li><a href="/settings">系统设定</a></li>
 					<li><a>Item 2</a></li>
 					<li><a>Item 3</a></li>
 				</ul>
-				<a href="#top" class="back-to-top btn btn-active btn-neutral"
+				<!-- <a href="#top" class="back-to-top btn btn-active btn-neutral"
 					>返回顶部</a
-				>
+				> -->
 			</aside>
 			<section class="flex-1 flex flex-col">
-				<div class="flex-1">
+				<div class="flex-1 px-4">
 					<slot />
 				</div>
 				<footer class="flex-none footer p-10 text-base-content">

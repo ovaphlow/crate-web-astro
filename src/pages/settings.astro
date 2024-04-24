@@ -1,0 +1,19 @@
+---
+import axios from "axios";
+import Layout from "../layouts/Layout.astro";
+import { CRATE_API_HOST } from "../constants.mjs";
+import Setting from "../components/Setting.svelte";
+
+let settings = [];
+
+await (async () => {
+    const response = await axios.get(
+        CRATE_API_HOST + "/setting?option=default",
+    );
+    settings = await response.data;
+})();
+---
+
+<Layout title="">
+    <Setting client:load mode="list" settings={settings} />
+</Layout>
