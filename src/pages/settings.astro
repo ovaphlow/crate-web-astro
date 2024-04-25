@@ -7,9 +7,8 @@ import Setting from "../components/Setting.svelte";
 let settings = [];
 
 await (async () => {
-    const response = await axios.get(
-        CRATE_API_HOST + "/setting?option=default",
-    );
+    const response = await axios.get(CRATE_API_HOST + "/setting?option=default");
+    console.info(response);
     settings = await response.data;
 })();
 ---
