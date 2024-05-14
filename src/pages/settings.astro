@@ -2,17 +2,57 @@
 import axios from "axios";
 import Layout from "../layouts/Layout.astro";
 import { CRATE_API_HOST } from "../constants.mjs";
-import Setting from "../components/Setting.svelte";
 
-let settings = [];
+let settings: {
+    _rootId: string;
+    _parentId: string;
+    tags: string;
+    detail: string;
+}[] = [];
 
 await (async () => {
-    const response = await axios.get(CRATE_API_HOST + "/setting?option=default");
-    console.info(response);
-    settings = await response.data;
+    try {
+        const response = await axios.get(CRATE_API_HOST + "/setting?option=default");
+        console.log(response.data);
+        settings = response.data;
+    } catch (err) {
+        console.error(err);
+    }
 })();
 ---
 
 <Layout title="">
-    <Setting client:load mode="list" settings={settings} />
+    <div>
+        <h2 class="text-2xl">Settings</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>ROOT</th>
+                    <th>PARENT</th>
+                    <th>TAGS</th>
+                    <th>DETAIL</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    settings.map((it, index: number) => (
+                        <tr>
+                            <td>{index + 1}</td>
+                            <td>{it._rootId}</td>
+                            <td>{it._parentId}</td>
+                            <td>{it.tags}</td>
+                            <td>{it.detail}</td>
+                            <td>
+                                <button type="button" @click="location.href='/setting-new'" class="btn btn-link">
+                                    编辑
+                                </button>
+                            </td>
+                        </tr>
+                    ))
+                }
+            </tbody>
+        </table>
+    </div>
 </Layout>
